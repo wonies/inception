@@ -48,7 +48,7 @@ RUN mkdir -p /run/php && chown -R www-data:www-data /run/php && usermod -G www-d
 RUN mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 # WP-CLI 설치
 # WORKDIR /usr/local/bin
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
@@ -61,7 +61,6 @@ RUN sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 0.0.0.0:9000/g' /etc
 
 # 스크립트 복사 및 실행 권한 설정
 # 포트 열기 및 시작 명령 설정`
-EXPOSE 9000
 ENTRYPOINT [ "/tmp/script.sh" ]
 # CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
 # php모드를 포어그라운드에서 실행하라는 의미`

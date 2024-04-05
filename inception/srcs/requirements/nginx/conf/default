@@ -1,7 +1,7 @@
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name wonhshin@student.42seoul.kr;
+	server_name 
 
 	ssl_protocols  TLSv1.2 TLSv1.3;
     

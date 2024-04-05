@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+# set -e
 # export MARIADB_NAME=wordpress
 # export MARIADB_USER=wonie
 # export MARIADB_PASSWORD=0000
@@ -93,8 +93,7 @@ set -e
 
 # export WORDPRESS_DB_HOST=mariadb
 
-mkdir -p /run/php && chown -R www-data:www-data /run/php && usermod -G www-data -a www-data && chmod -R 755 /run/php
-mkdir -p /var/www/html && chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
 
 echo "==== start wordpress ===="
 # mkdir -p /run/php
@@ -111,14 +110,11 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 
     echo "Installing WordPress..."
     cd /var/www/html
-    chmod -R 755 /var/www/html
 
     # sleep 3
     wp core download --allow-root --path=/var/www/html
-    echo "------1------"
-    echo "waiting config"
     wp config create --dbname=$MARIADB_NAME --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=$WORDPRESS_DB_HOST --path=/var/www/html --allow-root
-    wp core install --url=$DOMAIN_NAME --title="Inception" --admin_user=$WORDPRESS_ADMIN_NAME --admin_password=$WORDPRESS_ADMIN_PASS --admin_email=$WORDPRESS_ADMIN_EMAIL --path=/var/www/html --allow-root
+    wp core install --url=localhost --title="Inception" --admin_user=$WORDPRESS_ADMIN_NAME --admin_password=$WORDPRESS_ADMIN_PASS --admin_email=$WORDPRESS_ADMIN_EMAIL --path=/var/www/html --allow-root
     wp user create $WORDPRESS_USER_NAME $WORDPRESS_USER_EMAIL --user_pass=$WORDPRESS_USER_PASS --role="author" --path=/var/www/html --allow-root
 else
     echo "WordPress is already installed."
