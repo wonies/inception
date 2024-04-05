@@ -10,3 +10,5 @@ RUN chmod +x /tmp/script.sh
 RUN chmod +x /etc/nginx/sites-enabled/default
 # ENTRYPOINT ["/tmp/script.sh"]
 CMD ["nginx", "-g", "daemon off;"]
+
+
