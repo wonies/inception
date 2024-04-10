@@ -123,7 +123,7 @@ fi
 echo "==== WordPress setup completed ===="
 # php7.4-fpm -F
 # /usr/sbin/php-fpm -F
-#unterminated quoted string 
+#unterminated quoted string
 
 
 # mkdir /run/php

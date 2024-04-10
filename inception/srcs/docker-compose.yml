@@ -48,7 +48,7 @@ services:
 networks:
   inception:
     driver: bridge
-  
+
 
 volumes:
   db:
@@ -56,10 +56,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/wonie/Desktop/inception/db
+      device: /home/wonhshin/data/db
   web:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/wonie/Desktop/inception/web
+      device: /home/wonhshin/data/web
