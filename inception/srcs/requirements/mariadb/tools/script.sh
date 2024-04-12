@@ -66,5 +66,5 @@ echo "===mariadb end==="
 service mariadb stop
 
 # CMD에서 지정된 명령어 실행
-mysqld_safe
+exec mysqld_safe
 #exec "$@"
