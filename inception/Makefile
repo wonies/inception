@@ -7,6 +7,8 @@ clean	:
 fclean	:
 			docker-compose -f ./srcs/docker-compose.yml down --rmi all
 			docker volume rm -f mariadb wordpress
+			rm -rf /home/wonhshin/data/web/*
+			rm -rf /home/wonhshin/data/db/*
 
 re		:	fclean all
 
