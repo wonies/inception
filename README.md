@@ -1,10 +1,11 @@
 # 🏗️ Inception
+
 > A system administration & DevOps project using Docker and Docker Compose.  
 > Build a secure, scalable, and containerized web service from scratch.
 
 ---
 
-![Inception Architecture](./inception_architecture.png)
+![Inception Architecture](./architecture.png)
 
 ---
 
@@ -22,14 +23,15 @@
 ---
 
 ## 🧱 사용 기술
-| 역할 | 도구 |
-|------|------|
-| OS | Debian (기반 Linux 이미지) |
-| Web Server | Nginx + SSL (OpenSSL) |
-| CMS | WordPress + WP-CLI |
-| DB | MariaDB |
-| DevOps | Docker, Docker Compose |
-| 언어 | Shell Script, PHP, SQL |
+
+| 역할       | 도구                       |
+| ---------- | -------------------------- |
+| OS         | Debian (기반 Linux 이미지) |
+| Web Server | Nginx + SSL (OpenSSL)      |
+| CMS        | WordPress + WP-CLI         |
+| DB         | MariaDB                    |
+| DevOps     | Docker, Docker Compose     |
+| 언어       | Shell Script, PHP, SQL     |
 
 ---
 
@@ -57,19 +59,23 @@
 ## 📸 시연 화면
 
 ### ✅ MariaDB 정상 작동 및 데이터 확인
-![MariaDB 테이블 확인](./mariadb_status.png)
+
+![MariaDB 테이블 확인](./mariadb.png)
 
 ### ✅ WordPress 로그인 화면 (HTTPS 인증서 경고)
-![WordPress 로그인](./wp_login_https_warning.png)
 
-### ✅ WordPress 관리자 페이지 접속
-![WordPress Dashboard](./wp_dashboard_https.png)
+![WordPress 로그인](./wordpress.png)
+
+### ✅ WordPress 관리자 페이지 접속/ TLS확인
+
+![WordPress Dashboard](./tls.png)
 
 ---
 
 ## 🧩 구현 상세
 
 ### 🔹 MariaDB
+
 - 기본 설치 후 데이터 디렉토리 `/var/lib/mysql` 을 마운트
 - `script.sh`를 통해 DB 자동 생성 및 유저 설정
 - `mysqld_safe`로 안정적 실행
@@ -81,6 +87,7 @@ GRANT ALL PRIVILEGES ON $MARIADB_NAME.* TO '$MARIADB_USER'@'%';
 ```
 
 ### 🔹 WordPress
+
 - WP-CLI를 사용하여 자동 설치 및 초기 설정
 - 관리자 계정과 일반 사용자 계정 생성
 - MariaDB와 연결되도록 `.env` 기반 설정 적용
@@ -89,10 +96,11 @@ GRANT ALL PRIVILEGES ON $MARIADB_NAME.* TO '$MARIADB_USER'@'%';
 ```sh
 wp core download
 wp config create --dbname=... --dbuser=...
-wp core install --url=... --admin_user=... 
+wp core install --url=... --admin_user=...
 ```
 
 ### 🔹 Nginx
+
 - HTTPS(SSL) 인증서 직접 생성 (`openssl`)
 - `/etc/ssl/certs`, `/etc/ssl/private`에 pem/crt 저장
 - `fastcgi_pass`로 WordPress PHP-FPM과 연결 (port 9000)
@@ -103,6 +111,7 @@ wp core install --url=... --admin_user=...
 ## ⚙️ Docker 설정 요약
 
 ### 📁 .env
+
 ```dotenv
 DOMAIN_NAME=wonhshin.42.fr
 MARIADB_ROOT_PASSWORD=0000
@@ -116,6 +125,7 @@ WORDPRESS_ADMIN_PASS=0000
 ```
 
 ### 📄 docker-compose.yml
+
 ```yaml
 services:
   mariadb:
@@ -131,7 +141,7 @@ services:
   nginx:
     build: ./requirements/nginx
     ports:
-      - "443:443"
+      - '443:443'
     depends_on:
       - wordpress
     volumes:
@@ -139,6 +149,7 @@ services:
 ```
 
 ### 🗂️ Volumes
+
 ```yaml
 volumes:
   db:
@@ -164,6 +175,7 @@ docker-compose down
 ---
 
 ## 💡 학습 포인트
+
 - Nginx + PHP-FPM 연동 방법
 - OpenSSL로 인증서 생성 및 HTTPS 적용
 - WP-CLI로 자동 설정 스크립트 구성
@@ -174,4 +186,5 @@ docker-compose down
 ---
 
 ## 👤 작성자
+
 - wonies
